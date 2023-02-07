@@ -9,7 +9,7 @@ Movie::Movie(const std::string category, const string name, double price, int qt
     :Product(category, name,price,qty),genre_(genre), rating_(rating) {}
 
 //create key word from author, name, and isbn.
-set<std::string> Movie::keywords()const
+set<string> Movie::keywords()const
 {
     set<string> s1 = parseStringToWords(name_);
     set<string> s2 = parseStringToWords(genre_);
