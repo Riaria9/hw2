@@ -4,12 +4,14 @@
 #include <set>
 #include <sstream>
 #include <vector>
+#include <queue>
 #include <iomanip>
 #include <algorithm>
 #include "product.h"
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -30,7 +32,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -91,6 +93,58 @@ int main(int argc, char* argv[])
                 hits = ds.search(terms, 1);
                 displayProducts(hits);
             }
+            else if (cmd == "ADD"){
+                string username;
+                int numOfArgs = 0;
+                if(ss>>username){
+                    if((ds.userWithNameNCart).find(convToLower(username)) == (ds.userWithNameNCart).end()){
+                    cout<<"Invalid request"<<endl;
+                    continue;
+                    }
+                    numOfArgs++;
+                }
+                else{
+                    cout<<"Invalid request"<<endl;
+                    continue;
+                }
+                size_t idx;
+                if(ss>>idx){
+                    //if the idx is greater than the size of hit
+                    if(idx>=hits.size()){
+                        cout<<"Invalid request"<<endl;
+                        continue;
+                    }
+                    Product* tempProduct = hits[idx];
+                    //now find the user and add it to user's cart
+                    (((*((ds.userWithNameNCart).find(username))).second).second).push(tempProduct);
+                }
+                else{
+                    cout<<"Invalid request"<<endl;
+                }    
+            }
+            else if( cmd == "VIEWCART"){
+                string username;
+                if(ss>>username){
+                    map<std::string,std::pair<User*,std::queue<Product*>>>::iterator it = ds.userWithNameNCart.find(username);
+                    if(it == ds.userWithNameNCart.end()){//if username not found
+                        cout<<"Invalid username"<<endl;
+                    }
+                    else{//if found, display the cart by creating a new vector containing all the element in cart queue and execute displayProducts
+                        size_t size = ((*it).second.second).size();
+                        vector<Product*> tempProduct;
+                        queue<Product*> tempQueue = (*it).second.second;
+                        for(size_t i = 0; i<size; i++){
+                            tempProduct.push_back(tempQueue.front());
+                            tempQueue.pop();
+                        }
+                        displayProducts(tempProduct);
+                    }
+                }
+                else{
+                    cout<<"Invalid username"<<endl;
+                }
+            }
+
             else if ( cmd == "QUIT") {
                 string filename;
                 if(ss >> filename) {

@@ -25,12 +25,12 @@ string Movie::displayString()const
 void Movie::dump(std::ostream& os) const
 {
 
-    cout<<category_<<endl;
-    cout<<name_<<endl;
-    cout<<price_<<endl;
-    cout<<qty_<<endl;
-    cout<<genre_<<endl;
-    cout<<rating_<<endl;
+    os<<category_<<endl;
+    os<<name_<<endl;
+    os<<price_<<endl;
+    os<<qty_<<endl;
+    os<<genre_<<endl;
+    os<<rating_<<endl;
 
 
 }

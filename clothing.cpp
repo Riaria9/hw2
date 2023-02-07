@@ -25,12 +25,12 @@ string Clothing::displayString() const
 void Clothing::dump(std::ostream& os) const
 {
 
-    cout<<category_<<endl;
-    cout<<name_<<endl;
-    cout<<price_<<endl;
-    cout<<qty_<<endl;
-    cout<<size_<<endl;
-    cout<<brand_<<endl;
+    os<<category_<<endl;
+    os<<name_<<endl;
+    os<<price_<<endl;
+    os<<qty_<<endl;
+    os<<size_<<endl;
+    os<<brand_<<endl;
 
 
 }

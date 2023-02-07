@@ -20,17 +20,17 @@ set<std::string> Book::keywords () const
 //print book's info
 string Book::displayString() const
 {
-    string nl="\n";
+    
     return name_+"\nAuthor: "+author_+" ISBN: "+isbn_+ "\n" +to_string(price_)+" "+to_string(qty_)+" left.\n";
 }
 //print database format info
 void Book::dump(std::ostream& os) const
 {
 
-    cout<<category_<<endl;
-    cout<<name_<<endl;
-    cout<<price_<<endl;
-    cout<<qty_<<endl;
-    cout<<isbn_<<endl;
-    cout<<author_<<endl;
+    os<<category_<<endl;
+    os<<name_<<endl;
+    os<<price_<<endl;
+    os<<qty_<<endl;
+    os<<isbn_<<endl;
+    os<<author_<<endl;
 }

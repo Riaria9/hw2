@@ -3,3 +3,4 @@ amazon
 hw2_tests/
 test.cpp
 test.exe
+.vscode/
