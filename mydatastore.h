@@ -23,6 +23,7 @@ public:
     std::map<std::string,std::pair<User*,std::queue<Product*>>>userWithNameNCart;
     std::vector<Product*> product_;//the set containing products
     std::map<std::string, std::set<Product*>> keywordMap;
+    std::vector<Product*>hits_;
     
 };
 

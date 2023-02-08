@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/libperf/libperf.c
+/work/hw2/hw2/hw2_tests/testing_utils/libperf/libperf.c
 assert.h
 -
 fcntl.h
@@ -23,8 +23,6 @@ stdlib.h
 -
 string.h
 -
-stropts.h
--
 sys/syscall.h
 -
 sys/types.h
@@ -38,9 +36,9 @@ unistd.h
 linux/perf_event.h
 -
 libperf.h
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/libperf/libperf.h
+/work/hw2/hw2/hw2_tests/testing_utils/libperf/libperf.h
 
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/libperf/libperf.h
+/work/hw2/hw2/hw2_tests/testing_utils/libperf/libperf.h
 stdint.h
 -
 stdio.h

@@ -85,6 +85,7 @@ int main(int argc, char* argv[])
                     terms.push_back(term);
                 }
                 hits = ds.search(terms, 0);
+                ds.hits_=hits;
                 displayProducts(hits);
             }
             else if ( cmd == "OR" ) {
@@ -95,6 +96,7 @@ int main(int argc, char* argv[])
                     terms.push_back(term);
                 }
                 hits = ds.search(terms, 1);
+                ds.hits_=hits;
                 displayProducts(hits);
             }
 
@@ -104,8 +106,8 @@ int main(int argc, char* argv[])
                 int numOfArgs = 0;
                 if(ss>>username){
                     if((ds.userWithNameNCart).find(convToLower(username)) == (ds.userWithNameNCart).end()){
-                    cout<<"Invalid request"<<endl;
-                    continue;
+                        cout<<"Invalid request"<<endl;
+                        continue;
                     }
                     numOfArgs++;
                 }
@@ -116,13 +118,14 @@ int main(int argc, char* argv[])
                 size_t idx;
                 if(ss>>idx){
                     //if the idx is greater than the size of hit
-                    if(idx>=hits.size()){
+                    if(idx>hits.size()){
                         cout<<"Invalid request"<<endl;
                         continue;
                     }
-                    Product* tempProduct = hits[idx];
+                    Product* tempProduct = ds.hits_[idx-1];
                     //now find the user and add it to user's cart
-                    (((*((ds.userWithNameNCart).find(username))).second).second).push(tempProduct);
+                    (((*((ds.userWithNameNCart).find(convToLower(username)))).second).second).push(tempProduct);
+                    
                 }
                 else{
                     cout<<"Invalid request"<<endl;
@@ -131,26 +134,20 @@ int main(int argc, char* argv[])
             else if( cmd == "VIEWCART"){
                 string username;
                 if(ss>>username){
-                    map<std::string,std::pair<User*,std::queue<Product*>>>::iterator it = ds.userWithNameNCart.find(username);
-                    if(it == ds.userWithNameNCart.end()){//if username not found
-                        cout<<"Invalid username"<<endl;
-                    }
-                    else{//if found, display the cart by creating a new vector containing all the element in cart queue and execute displayProducts
-                        // size_t size = ((*it).second.second).size();
-                        // vector<Product*> tempProduct;
-                        // queue<Product*> tempQueue = (*it).second.second;
-                        // for(size_t i = 0; i<size; i++){
-                        //     tempProduct.push_back(tempQueue.front());
-                        //     tempQueue.pop();
-                        // }
-                        // displayProducts(tempProduct);
+                    map<std::string,std::pair<User*,std::queue<Product*>>>::iterator it = ds.userWithNameNCart.find(convToLower(username));
+                    if(it != ds.userWithNameNCart.end()){//if username found
                         queue<Product*>tempQueue = (*it).second.second;
                         size_t size = ((*it).second.second).size();
                         for(size_t i = 0; i<size; i++){
-                            string temp ((tempQueue.front())->displayString());
-                            cout<<++i<<endl;
-                            cout<<temp<<endl;
+                            if(tempQueue.size()!=0){
+                                string temp ((tempQueue.front())->displayString());
+                                cout<<++i<<endl;
+                                cout<<temp<<endl;
+                            }
                         }
+                    }
+                    else{
+                        cout<<"Invalid username"<<endl;
                     }
                 }
                 else{
@@ -162,9 +159,12 @@ int main(int argc, char* argv[])
                 //go to the cart. make a copy of the cart. use front(), pop().
                 queue<Product*>noPurchaseContent;
                 string username;
-                if (ss<<username){
-                    map<string,pair<User*,queue<Product*>>>::iterator it;
-                    it = ds.userWithNameNCart.find(convToLower(username));
+                if (ss>>username){
+                    map<std::string,std::pair<User*,std::queue<Product*>>>::iterator it = ds.userWithNameNCart.find(convToLower(username));
+                    if(it == ds.userWithNameNCart.end()){
+                        cout<<"Invalid username"<<endl;
+                        break;
+                    }
                     User* user = (*it).second.first;
                     queue<Product*> tempQueueCart = (*it).second.second;
                     //for the copy of queuecart, we can front() and pop() to read  all the data

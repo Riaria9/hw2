@@ -6,39 +6,39 @@
 
 #IncludeRegexTransform: ^([ 	]*[#%][ 	]*(include|import)[ 	]*)(KWSYS_HEADER)[ 	]*\(([^),]*)\) KWSYS_HEADER(%)=<kwsys/%>
 
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/Encoding.h.in
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/Encoding.h.in
 @KWSYS_NAMESPACE@/Configure.h
 -
 wchar.h
 -
 
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/EncodingC.c
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/EncodingC.c
 kwsysPrivate.h
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/kwsysPrivate.h
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/kwsysPrivate.h
 kwsys/Encoding.h
 -
 Encoding.h.in
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/Encoding.h.in
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/Encoding.h.in
 stdlib.h
 -
 windows.h
 -
 
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/Process.h.in
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/Process.h.in
 @KWSYS_NAMESPACE@/Configure.h
 -
 
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/ProcessUNIX.c
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/ProcessUNIX.c
 kwsysPrivate.h
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/kwsysPrivate.h
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/kwsysPrivate.h
 kwsys/Process.h
 -
 kwsys/System.h
 -
 Process.h.in
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/Process.h.in
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/Process.h.in
 System.h.in
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/System.h.in
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/System.h.in
 assert.h
 -
 ctype.h
@@ -74,13 +74,13 @@ unistd.h
 be/kernel/OS.h
 -
 
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/System.c
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/System.c
 kwsysPrivate.h
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/kwsysPrivate.h
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/kwsysPrivate.h
 kwsys/System.h
 -
 System.h.in
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/System.h.in
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/System.h.in
 ctype.h
 -
 stddef.h
@@ -92,11 +92,11 @@ string.h
 stdio.h
 -
 
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/System.h.in
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/System.h.in
 @KWSYS_NAMESPACE@/Configure.h
 -
 
-/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/kwsysPrivate.h
+/work/hw2/hw2/hw2_tests/testing_utils/kwsys/kwsysPrivate.h
 kwsys/Directory.hxx
 -
 kwsys/std/vector

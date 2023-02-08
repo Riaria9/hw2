@@ -1,4 +1,4 @@
-# Install script for directory: /work/csci104/material/artifacts/hw2/grading/amazon/testing_utils
+# Install script for directory: /work/hw2/hw2/hw2_tests/testing_utils
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/kwsys/cmake_install.cmake")
-  include("/work/csci104/material/artifacts/hw2/grading/amazon/testing_utils/libperf/cmake_install.cmake")
+  include("/work/hw2/hw2/hw2_tests/testing_utils/kwsys/cmake_install.cmake")
+  include("/work/hw2/hw2/hw2_tests/testing_utils/libperf/cmake_install.cmake")
 
 endif()
 

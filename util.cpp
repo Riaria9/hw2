@@ -21,19 +21,22 @@ std::set<std::string> parseStringToWords(string rawWords)
     std::set<string> s_str;
     for(int i = 0; i< len; i++){
         if(ispunct(rawWords[i]) || isspace(rawWords[i])){
-            if(rawWords[i]=='-'){//accept - as keyword 
-                temp+=tolower(rawWords[i]);
-                continue;
-            }
+            // if(ispunct(rawWords[i])&&rawWords[i]=='+' &&rawWords[i]!=','&&rawWords[i]!='.'&&rawWords[i]!='\"'&&rawWords[i]!='\''){//accept - as keyword 
+            //     temp+=tolower(rawWords[i]);
+            //     if(i == len-1 && temp.size()>1)
+            //         s_str.insert(temp);
+            //     continue;
+            // }
             if(temp.size()>1)
                 s_str.insert(temp);
             temp = "";//set empty again and
             continue;
         }
         temp+=tolower(rawWords[i]);
+        if(i == len-1 && temp.size()>1)
+            s_str.insert(temp);
     }
     return s_str;
-
 }
 
 /**************************************************

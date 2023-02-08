@@ -12,9 +12,8 @@ Movie::Movie(const std::string category, const string name, double price, int qt
 set<string> Movie::keywords()const
 {
     set<string> s1 = parseStringToWords(name_);
-    set<string> s2 = parseStringToWords(genre_);
-    set<string> s3 = setUnion(s1,s2);
-    return s3;
+    s1.insert(genre_);
+    return s1;
 }
 //print book's info
 string Movie::displayString()const

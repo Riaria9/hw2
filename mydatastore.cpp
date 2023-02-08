@@ -30,6 +30,7 @@ void MyDataStore::addProduct(Product* p)
             keywordMap.insert(p1);
         }
     }
+    
     else{
         //if some products already exist, when go go through the keywordInProduct, need to check if that keyword already existed in keywordMap
         for(it = keywordInProduct.begin(); it != keywordInProduct.end(); ++it){
@@ -69,52 +70,128 @@ vector<Product*> MyDataStore::search(vector<string>& terms, int type)
 {
     //AND Search
     if(type == 0){
-        //iterate over each of the terms.
-    int size = terms.size();
-    vector<Product*> p;
-    //if only 1 term
-    if(size == 1){
-        if (keywordMap.find(terms[0]) != keywordMap.end()){
-            vector<Product*> vectorOfProducts((*(keywordMap.find(terms[0]))).second.begin(),(*(keywordMap.find(terms[0]))).second.end());
-            return vectorOfProducts;
+        int size = terms.size();
+        set<Product*>tempSet;
+        int k = 0;
+        for(int i=0;  i<size; i++){
+            ////after the loop the tempSet could be filled with at least something
+            map<string, set<Product*>>::iterator it = keywordMap.find(terms[i]);
+            k= ++i;
+            if(it!=keywordMap.end()){
+                tempSet = (*(it)).second;
+                break;
+            }
         }
-    }
-    //if 2 items, then simply find intersection between the 2 vector
-    else if(size ==2){
-        set<Product*> setOfProducts= setIntersection((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
-        vector<Product*> vectorOfProducts(setOfProducts.begin(),setOfProducts.end());
-        return vectorOfProducts;
-    }
+        for(int j=k; j<size; j++){
+            ////after the loop the tempSet could be filled with at least something
+            map<string, set<Product*>>::iterator it = keywordMap.find(terms[j]);
+            if(it!=keywordMap.end()){
+                tempSet = setIntersection(tempSet,(*(it)).second);
+            }
+            else{
+                vector<Product*>emptyVec;
+                return emptyVec;
+            }
+        }
+        vector<Product*> p (tempSet.begin(),tempSet.end());
+        return p;
+        
     
-        //first find the union of first 2 sets
-        set<Product*> tempSet = setIntersection((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
-        for(int i = 2; i<size; i++){
-        tempSet = setIntersection(tempSet,(*(keywordMap.find(terms[i]))).second);//update the tempSet to the newest intersection between itself and next set of products
-        }
-        vector<Product*> vectorOfProducts(tempSet.begin(),tempSet.end());
-        return vectorOfProducts;
-    }
+    //     //iterate over each of the terms.
+    // vector<Product*> vectorOfNothing;
+    // int size = terms.size();
+    // vector<Product*> p;
+    // //if only 1 term
+    // if(size == 1){
+    //     if (keywordMap.find(terms[0]) != keywordMap.end()){
+    //         vector<Product*> vectorOfProducts((*(keywordMap.find(terms[0]))).second.begin(),(*(keywordMap.find(terms[0]))).second.end());
+    //         return vectorOfProducts;
+    //     }
+    // }
+    // //if 2 items, then simply find intersection between the 2 vector
+    // else if(size ==2){
+    //     //if both keyword exist in keyword map
+    //     if(keywordMap.find(terms[0])!=keywordMap.end()&&keywordMap.find(terms[1])!=keywordMap.end()){
+    //         set<Product*> setOfProducts= setIntersection((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
+    //         vector<Product*> vectorOfProducts(setOfProducts.begin(),setOfProducts.end());
+    //         return vectorOfProducts;
+    //     }
+    //     else{
+    //         return vectorOfNothing;
+    //     }
+    // }
+    // //more than 2 terms
+    // //first find the union of first 2 sets
+    // else{
+    //     //first check if these terms all exist in keyword
+    //     int count = 0;
+    //     for(int i = 0; i<size;i++){
+    //         if(keywordMap.find(terms[i])!=keywordMap.end()){
+    //             count ++;
+    //         }
+    //     }
+    //     //if all terms appears in keywordMap, then find intersect of them
+    //     if(count==size){
+    //         set<Product*> tempSet = setIntersection((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
+    //         for(int i = 2; i<size; i++){
+    //         tempSet = setIntersection(tempSet,(*(keywordMap.find(terms[i]))).second);//update the tempSet to the newest intersection between itself and next set of products
+    //         }
+    //         vector<Product*> vectorOfProducts(tempSet.begin(),tempSet.end());
+    //         return vectorOfProducts;
+    //     }
+    //     else{
+    //         return vectorOfNothing;
+    //     }
+        
+    // }
+    // return vectorOfNothing;
+    
+}
 
 //OR search
     else{
         int size = terms.size();
-        if(size == 1){
-            vector<Product*>vectorOfProducts(((*(keywordMap.find(terms[0]))).second).begin(),((*(keywordMap.find(terms[0]))).second).end());
-            return vectorOfProducts;
-        }
-        else if(size==2){
-            set<Product*>setOfProducts = setUnion(((*(keywordMap.find(terms[0]))).second),((*(keywordMap.find(terms[1]))).second));
-            vector<Product*>vectorOfProducts(setOfProducts.begin(),setOfProducts.end());
-            return vectorOfProducts;
-        }
-        else{
-            set<Product*> tempSet = setUnion((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
-            for(int i = 2; i<size; i++){
-            tempSet = setUnion(tempSet,(*(keywordMap.find(terms[i]))).second);//update the tempSet to the newest intersection between itself and next set of products
+        set<Product*>tempSet;
+        for(int i=0 ;i<size; i++){
+            map<string, set<Product*>>::iterator it = keywordMap.find(terms[i]);
+            if(it!=keywordMap.end()){
+                tempSet = setUnion(tempSet,(*(it)).second);
             }
-            vector<Product*> vectorOfProducts(tempSet.begin(),tempSet.end());
-            return vectorOfProducts;
         }
+        vector<Product*> p (tempSet.begin(),tempSet.end());
+        return p;
+        // vector<Product*> vectorOfNothing;
+        // return vectorOfNothing;
+        // int size = terms.size();
+        // if(size == 1){
+        //     if(keywordMap.find(terms[0])!=keywordMap.end()){//if that exist in keywordMap
+        //         vector<Product*>vectorOfProducts(((*(keywordMap.find(terms[0]))).second).begin(),((*(keywordMap.find(terms[0]))).second).end());
+        //         return vectorOfProducts;
+        //     }
+        //     else{
+        //         return vectorOfNothing;
+        //     }
+        // }
+        // else if(size==2){
+        //     if(keywordMap.find(terms[0])!=keywordMap.end()){
+        //         //set<Product*>setOfProducts = setUnion(((*(keywordMap.find(terms[0]))).second),((*(keywordMap.find(terms[1]))).second));
+        //         vector<Product*>vectorOfProducts((*(keywordMap.find(terms[0]))).second.begin(),(*(keywordMap.find(terms[0]))).second.end());
+        //         return vectorOfProducts;
+        //     }
+        //     else if(keywordMap.find(terms[1])!=keywordMap.end()) {
+        //         vector<Product*>vectorOfProducts((*(keywordMap.find(terms[1]))).second.begin(),(*(keywordMap.find(terms[1]))).second.end());
+        //         return vectorOfProducts;
+        //     }
+            
+        // }
+        // else{
+        //     // set<Product*> tempSet = setUnion((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
+        //     // for(int i = 2; i<size; i++){
+        //     // tempSet = setUnion(tempSet,(*(keywordMap.find(terms[i]))).second);//update the tempSet to the newest intersection between itself and next set of products
+        //     // }
+        //     // vector<Product*> vectorOfProducts(tempSet.begin(),tempSet.end());
+        //     // return vectorOfProducts;
+        // }
          
     }
     
