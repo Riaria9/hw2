@@ -8,6 +8,7 @@
 class MyDataStore : public DataStore
 {
 public:
+    ~MyDataStore();
     MyDataStore();//constructor to setup the keywordMap structure
 
     void addProduct(Product* p);

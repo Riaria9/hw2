@@ -8,9 +8,18 @@ using namespace std;
  ** Adds a product to the data store
 */
 
-//Constructor that setup the datasture keywordMap
+
 MyDataStore::MyDataStore(){
 
+}
+MyDataStore::~MyDataStore(){
+    for(size_t i =0;i< product_.size(); i++){
+        delete product_[i];
+    }
+    map<std::string,std::pair<User*,std::queue<Product*>>>::iterator it;
+    for(it=userWithNameNCart.begin();it!=userWithNameNCart.end();it++){
+        delete (*it).second.first;
+    }
 }
 
 
