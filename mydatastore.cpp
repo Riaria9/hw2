@@ -49,8 +49,17 @@ void MyDataStore::addProduct(Product* p)
      * Adds a user to the data store
      */
 void MyDataStore::addUser(User* u) 
+<<<<<<< HEAD
 {
     user_.push_back(u);
+=======
+{   //std::map<std::string,std::pair<User*,std::queue<Product*>>>userWithNameNCart;
+    queue<Product*> q_withpd;
+    pair<User*,queue<Product*>> p(u,q_withpd);
+    string username = convToLower(u->getName());
+    pair<string,pair<User*,queue<Product*>>>temp(username,p);
+    userWithNameNCart.insert(temp);
+>>>>>>> 8d2e1645e6d9282a03e0cf0949f4428190cdb712
 }
 
  /**
@@ -63,26 +72,41 @@ void MyDataStore::addUser(User* u)
 //std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
 vector<Product*> MyDataStore::search(vector<string>& terms, int type)
 {
+<<<<<<< HEAD
     //iterate over each of the terms.
+=======
+    //AND Search
+    if(type == 0){
+        //iterate over each of the terms.
+>>>>>>> 8d2e1645e6d9282a03e0cf0949f4428190cdb712
     int size = terms.size();
     vector<Product*> p;
     //if only 1 term
     if(size == 1){
+<<<<<<< HEAD
         map<string,set<Product*>>::iterator itr;
         itr = find(keywordMap.begin(),keywordMap.end(),terms[0]);
         if (itr != keywordMap.end()){
+=======
+        if (keywordMap.find(terms[0]) != keywordMap.end()){
+>>>>>>> 8d2e1645e6d9282a03e0cf0949f4428190cdb712
             vector<Product*> vectorOfProducts((*(keywordMap.find(terms[0]))).second.begin(),(*(keywordMap.find(terms[0]))).second.end());
             return vectorOfProducts;
         }
     }
     //if 2 items, then simply find intersection between the 2 vector
     else if(size ==2){
+<<<<<<< HEAD
         set<Product*> setOfProducts= setUnion((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
+=======
+        set<Product*> setOfProducts= setIntersection((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
+>>>>>>> 8d2e1645e6d9282a03e0cf0949f4428190cdb712
         vector<Product*> vectorOfProducts(setOfProducts.begin(),setOfProducts.end());
         return vectorOfProducts;
     }
     
         //first find the union of first 2 sets
+<<<<<<< HEAD
         set<Product*> tempSet = setUnion((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
         for(int i = 2; i<size; i++){
         tempSet = setUnion(tempSet,(*(keywordMap.find(terms[i]))).second);//update the tempSet to the newest intersection between itself and next set of products
@@ -91,6 +115,38 @@ vector<Product*> MyDataStore::search(vector<string>& terms, int type)
         return vectorOfProducts;
     
     
+=======
+        set<Product*> tempSet = setIntersection((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
+        for(int i = 2; i<size; i++){
+        tempSet = setIntersection(tempSet,(*(keywordMap.find(terms[i]))).second);//update the tempSet to the newest intersection between itself and next set of products
+        }
+        vector<Product*> vectorOfProducts(tempSet.begin(),tempSet.end());
+        return vectorOfProducts;
+    }
+
+//OR search
+    else{
+        int size = terms.size();
+        if(size == 1){
+            vector<Product*>vectorOfProducts(((*(keywordMap.find(terms[0]))).second).begin(),((*(keywordMap.find(terms[0]))).second).end());
+            return vectorOfProducts;
+        }
+        else if(size==2){
+            set<Product*>setOfProducts = setUnion(((*(keywordMap.find(terms[0]))).second),((*(keywordMap.find(terms[1]))).second));
+            vector<Product*>vectorOfProducts(setOfProducts.begin(),setOfProducts.end());
+            return vectorOfProducts;
+        }
+        else{
+            set<Product*> tempSet = setUnion((*(keywordMap.find(terms[0]))).second,(*(keywordMap.find(terms[1]))).second);
+            for(int i = 2; i<size; i++){
+            tempSet = setUnion(tempSet,(*(keywordMap.find(terms[i]))).second);//update the tempSet to the newest intersection between itself and next set of products
+            }
+            vector<Product*> vectorOfProducts(tempSet.begin(),tempSet.end());
+            return vectorOfProducts;
+        }
+         
+    }
+>>>>>>> 8d2e1645e6d9282a03e0cf0949f4428190cdb712
     
 }
 
@@ -105,8 +161,14 @@ void MyDataStore::dump(ostream& ofile)
 
 
     ofile<<"<users>"<<endl;
+<<<<<<< HEAD
     for(int i=0 ;i<size;i++){
         user_[i]->dump(ofile);
+=======
+    map<string,pair<User*,queue<Product*>>>::iterator it;
+    for(it = userWithNameNCart.begin() ;it!=userWithNameNCart.end();it++){
+        ((((*it).second)).first)->dump(ofile);
+>>>>>>> 8d2e1645e6d9282a03e0cf0949f4428190cdb712
     }
     ofile<<"</users>"<<endl;
 }

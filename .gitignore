@@ -1,3 +1,10 @@
 *.o
 amazon
+<<<<<<< HEAD
 
+=======
+
+test.cpp
+test.exe
+.vscode/
+>>>>>>> 8d2e1645e6d9282a03e0cf0949f4428190cdb712

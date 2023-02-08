@@ -1,14 +1,17 @@
+//TODO incomplete
 #include <iostream>
 #include <fstream>
 #include <set>
 #include <sstream>
 #include <vector>
+#include <queue>
 #include <iomanip>
 #include <algorithm>
 #include "product.h"
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +32,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -90,6 +93,102 @@ int main(int argc, char* argv[])
                 hits = ds.search(terms, 1);
                 displayProducts(hits);
             }
+
+            /* Add support for other commands here */
+            else if (cmd == "ADD"){
+                string username;
+                int numOfArgs = 0;
+                if(ss>>username){
+                    if((ds.userWithNameNCart).find(convToLower(username)) == (ds.userWithNameNCart).end()){
+                    cout<<"Invalid request"<<endl;
+                    continue;
+                    }
+                    numOfArgs++;
+                }
+                else{
+                    cout<<"Invalid request"<<endl;
+                    continue;
+                }
+                size_t idx;
+                if(ss>>idx){
+                    //if the idx is greater than the size of hit
+                    if(idx>=hits.size()){
+                        cout<<"Invalid request"<<endl;
+                        continue;
+                    }
+                    Product* tempProduct = hits[idx];
+                    //now find the user and add it to user's cart
+                    (((*((ds.userWithNameNCart).find(username))).second).second).push(tempProduct);
+                }
+                else{
+                    cout<<"Invalid request"<<endl;
+                }    
+            }
+            else if( cmd == "VIEWCART"){
+                string username;
+                if(ss>>username){
+                    map<std::string,std::pair<User*,std::queue<Product*>>>::iterator it = ds.userWithNameNCart.find(username);
+                    if(it == ds.userWithNameNCart.end()){//if username not found
+                        cout<<"Invalid username"<<endl;
+                    }
+                    else{//if found, display the cart by creating a new vector containing all the element in cart queue and execute displayProducts
+                        // size_t size = ((*it).second.second).size();
+                        // vector<Product*> tempProduct;
+                        // queue<Product*> tempQueue = (*it).second.second;
+                        // for(size_t i = 0; i<size; i++){
+                        //     tempProduct.push_back(tempQueue.front());
+                        //     tempQueue.pop();
+                        // }
+                        // displayProducts(tempProduct);
+                        queue<Product*>tempQueue = (*it).second.second;
+                        size_t size = ((*it).second.second).size();
+                        for(size_t i = 0; i<size; i++){
+                            string temp ((tempQueue.front())->displayString());
+                            cout<<++i<<endl;
+                            cout<<temp<<endl;
+                        }
+                    }
+                }
+                else{
+                    cout<<"Invalid username"<<endl;
+                }
+            }
+            //TODO
+            else if (cmd == "BUYCART"){
+                //go to the cart. make a copy of the cart. use front(), pop().
+                queue<Product*>noPurchaseContent;
+                string username;
+                if (ss<<username){
+                    map<string,pair<User*,queue<Product*>>>::iterator it;
+                    it = ds.userWithNameNCart.find(convToLower(username));
+                    User* user = (*it).second.first;
+                    queue<Product*> tempQueueCart = (*it).second.second;
+                    //for the copy of queuecart, we can front() and pop() to read  all the data
+                    size_t size = tempQueueCart.size();
+                    for(size_t i= 0; i<size; i++){
+                        //go through each product now
+                        Product* product =tempQueueCart.front();
+                        int tempPrice = product->getPrice();
+                        if(tempPrice<=user->getBalance() && product->getQty()>0){//available to purchase!!
+                            //then deduct balance, qty-1, and remove this item from cart
+                            user->deductAmount(tempPrice);
+                            product->subtractQty(1);
+                        }
+                        else{
+                            noPurchaseContent.push(product);
+                        }
+                        (*it).second.second.pop();
+                        tempQueueCart.pop();
+                    }
+                    ((*it).second.second)=noPurchaseContent;
+                }
+                else{
+                    cout<<"Invalid username"<<endl;
+                }
+                
+                 
+            }
+
             else if ( cmd == "QUIT") {
                 string filename;
                 if(ss >> filename) {
@@ -99,7 +198,7 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
-	    /* Add support for other commands here */
+	    
 
 
 
