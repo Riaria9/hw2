@@ -156,7 +156,37 @@ int main(int argc, char* argv[])
             //TODO
             else if (cmd == "BUYCART"){
                 //go to the cart. make a copy of the cart. use front(), pop().
-                //for each fo the
+                queue<Product*>noPurchaseContent;
+                string username;
+                if (ss<<username){
+                    map<string,pair<User*,queue<Product*>>>::iterator it;
+                    it = ds.userWithNameNCart.find(convToLower(username));
+                    User* user = (*it).second.first;
+                    queue<Product*> tempQueueCart = (*it).second.second;
+                    //for the copy of queuecart, we can front() and pop() to read  all the data
+                    size_t size = tempQueueCart.size();
+                    for(size_t i= 0; i<size; i++){
+                        //go through each product now
+                        Product* product =tempQueueCart.front();
+                        int tempPrice = product->getPrice();
+                        if(tempPrice<=user->getBalance() && product->getQty()>0){//available to purchase!!
+                            //then deduct balance, qty-1, and remove this item from cart
+                            user->deductAmount(tempPrice);
+                            product->subtractQty(1);
+                        }
+                        else{
+                            noPurchaseContent.push(product);
+                        }
+                        (*it).second.second.pop();
+                        tempQueueCart.pop();
+                    }
+                    ((*it).second.second)=noPurchaseContent;
+                }
+                else{
+                    cout<<"Invalid username"<<endl;
+                }
+                
+                 
             }
 
             else if ( cmd == "QUIT") {
