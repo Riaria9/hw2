@@ -32,13 +32,7 @@ std::set<std::string> parseStringToWords(string rawWords)
         }
         temp+=tolower(rawWords[i]);
     }
-
-
-
-
-
-
-
+    return s_str;
 
 }
 
