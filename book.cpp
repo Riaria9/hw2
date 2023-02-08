@@ -2,6 +2,8 @@
 #include<iostream>
 #include"product.h"
 #include"util.h"
+#include<sstream>
+#include<iomanip>
 using namespace std;
 
 //constructor
@@ -20,8 +22,11 @@ set<std::string> Book::keywords () const
 //print book's info
 string Book::displayString() const
 {
-    
-    return name_+"\nAuthor: "+author_+" ISBN: "+isbn_+ "\n" +to_string(price_)+" "+to_string(qty_)+" left.\n";
+    stringstream s;
+    string price;
+    s<<fixed<<setprecision(2)<<price_;
+    price = s.str();
+    return name_+"\nAuthor: "+author_+" ISBN: "+isbn_+ "\n" +price+" "+to_string(qty_)+" left.";
 }
 //print database format info
 void Book::dump(std::ostream& os) const

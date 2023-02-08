@@ -141,7 +141,7 @@ int main(int argc, char* argv[])
                         for(size_t i = 0; i<size; i++){
                             if(tempQueue.size()!=0){
                                 string temp ((tempQueue.front())->displayString());
-                                cout<<++i<<endl;
+                                cout<<++i<<" ";
                                 cout<<temp<<endl;
                             }
                         }
