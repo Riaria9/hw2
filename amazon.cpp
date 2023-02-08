@@ -93,6 +93,8 @@ int main(int argc, char* argv[])
                 hits = ds.search(terms, 1);
                 displayProducts(hits);
             }
+
+            /* Add support for other commands here */
             else if (cmd == "ADD"){
                 string username;
                 int numOfArgs = 0;
@@ -130,19 +132,31 @@ int main(int argc, char* argv[])
                         cout<<"Invalid username"<<endl;
                     }
                     else{//if found, display the cart by creating a new vector containing all the element in cart queue and execute displayProducts
+                        // size_t size = ((*it).second.second).size();
+                        // vector<Product*> tempProduct;
+                        // queue<Product*> tempQueue = (*it).second.second;
+                        // for(size_t i = 0; i<size; i++){
+                        //     tempProduct.push_back(tempQueue.front());
+                        //     tempQueue.pop();
+                        // }
+                        // displayProducts(tempProduct);
+                        queue<Product*>tempQueue = (*it).second.second;
                         size_t size = ((*it).second.second).size();
-                        vector<Product*> tempProduct;
-                        queue<Product*> tempQueue = (*it).second.second;
                         for(size_t i = 0; i<size; i++){
-                            tempProduct.push_back(tempQueue.front());
-                            tempQueue.pop();
+                            string temp ((tempQueue.front())->displayString());
+                            cout<<++i<<endl;
+                            cout<<temp<<endl;
                         }
-                        displayProducts(tempProduct);
                     }
                 }
                 else{
                     cout<<"Invalid username"<<endl;
                 }
+            }
+            //TODO
+            else if (cmd == "BUYCART"){
+                //go to the cart. make a copy of the cart. use front(), pop().
+                //for each fo the
             }
 
             else if ( cmd == "QUIT") {
@@ -154,7 +168,7 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
-	    /* Add support for other commands here */
+	    
 
 
 
