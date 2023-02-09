@@ -62,7 +62,7 @@ Enter command:
 Hit   1
 Great Men and Women of Troy
 Author: Tommy Trojan ISBN: 978-000000000-1
-19.500000 5 left.
+19.50 5 left.
 
 
 
@@ -72,7 +72,7 @@ Enter command:
 Hit   1
 Hidden Figures DVD
 Genre: Drama Rating: PG
-17.990000 5 left
+17.99 5 left.
 
 
 
@@ -82,7 +82,7 @@ Enter command:
 Hit   1
 Great Men and Women of Troy
 Author: Tommy Trojan ISBN: 978-000000000-1
-19.500000 5 left.
+19.50 5 left.
 
 
 
@@ -92,24 +92,24 @@ Enter command:
 Hit   1
 Data Abstraction & Problem Solving with C++
 Author: Carrano and Henry ISBN: 978-013292372-9
-79.990000 20 left.
+79.99 20 left.
 
 
 
 Enter command: 
 
 Enter command: 
-1
+Item 1
 Great Men and Women of Troy
 Author: Tommy Trojan ISBN: 978-000000000-1
-19.500000 5 left.
+19.50 5 left.
 
 
 Enter command: 
-1
+Item 1
 Great Men and Women of Troy
 Author: Tommy Trojan ISBN: 978-000000000-1
-19.500000 5 left.
+19.50 5 left.
 
 
 Enter command: 

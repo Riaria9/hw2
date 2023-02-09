@@ -62,7 +62,7 @@ Enter command:
 Hit   1
 Hidden Figures DVD
 Genre: Drama Rating: PG
-17.990000 1 left
+17.99 1 left.
 
 
 
@@ -72,7 +72,7 @@ Enter command:
 Hit   1
 Hidden Figures DVD
 Genre: Drama Rating: PG
-17.990000 1 left
+17.99 1 left.
 
 
 

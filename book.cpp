@@ -26,7 +26,7 @@ string Book::displayString() const
     string price;
     s<<fixed<<setprecision(2)<<price_;
     price = s.str();
-    return name_+"\nAuthor: "+author_+" ISBN: "+isbn_+ "\n" +price+" "+to_string(qty_)+" left.";
+    return name_+"\nAuthor: "+author_+" ISBN: "+isbn_+ "\n" +price+" "+to_string(qty_)+" left.\n";
 }
 //print database format info
 void Book::dump(std::ostream& os) const

@@ -39,13 +39,13 @@ Enter command:
 Hit   1
 FOO
 Genre: Disaster Rating: PG-13
-0.990000 8 left
+0.99 8 left.
 
 
 Hit   2
 foo
 Genre: Programming Rating: TV-14
-20.250000 4 left
+20.25 4 left.
 
 
 

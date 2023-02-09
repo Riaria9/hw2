@@ -125,6 +125,7 @@ int main(int argc, char* argv[])
                     Product* tempProduct = ds.hits_[idx-1];
                     //now find the user and add it to user's cart
                     (((*((ds.userWithNameNCart).find(convToLower(username)))).second).second).push(tempProduct);
+                    cout<<endl;
                     
                 }
                 else{
@@ -136,15 +137,18 @@ int main(int argc, char* argv[])
                 if(ss>>username){
                     map<std::string,std::pair<User*,std::queue<Product*>>>::iterator it = ds.userWithNameNCart.find(convToLower(username));
                     if(it != ds.userWithNameNCart.end()){//if username found
-                        queue<Product*>tempQueue = (*it).second.second;
+                        queue<Product*>tempQueue = (*it).second.second;//make a temp queue cart
                         size_t size = ((*it).second.second).size();
-                        for(size_t i = 0; i<size; i++){
-                            if(tempQueue.size()!=0){
-                                string temp ((tempQueue.front())->displayString());
-                                cout<<++i<<" ";
+                        if(tempQueue.size()!=0){
+                            for(size_t i = 0; i<size; i++){//display an pop and display next
+                                string temp=((tempQueue.front())->displayString());
+                                cout<<"Item "<<++i<<endl;;
                                 cout<<temp<<endl;
+                                tempQueue.pop();
+                                cout<<"printed times:"<<i<<endl;
                             }
                         }
+                        
                     }
                     else{
                         cout<<"Invalid username"<<endl;
