@@ -4,4 +4,4 @@ hw2_tests/
 test.cpp
 test.exe
 .vscode/
-output.txt
+*.txt

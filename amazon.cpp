@@ -142,10 +142,11 @@ int main(int argc, char* argv[])
                         if(tempQueue.size()!=0){
                             for(size_t i = 0; i<size; i++){//display an pop and display next
                                 string temp=((tempQueue.front())->displayString());
-                                cout<<"Item "<<++i<<endl;;
+                                int j = i+1;
+                                cout<<"Item "<<j<<endl;;
                                 cout<<temp<<endl;
                                 tempQueue.pop();
-                                cout<<"printed times:"<<i<<endl;
+                                
                             }
                         }
                         
@@ -167,7 +168,7 @@ int main(int argc, char* argv[])
                     map<std::string,std::pair<User*,std::queue<Product*>>>::iterator it = ds.userWithNameNCart.find(convToLower(username));
                     if(it == ds.userWithNameNCart.end()){
                         cout<<"Invalid username"<<endl;
-                        break;
+                        continue;
                     }
                     User* user = (*it).second.first;
                     queue<Product*> tempQueueCart = (*it).second.second;
